@@ -42,6 +42,22 @@ class HubController {
     }
 
     /** 
+     * Wrapper arround Logger class's getLogLevel method
+     * in the Opent2t library
+     */
+    getLogLevel(transportObject) {
+        return this.ConsoleLogger.getLogLevel(transportObject);
+    }
+
+    /** 
+     * Wrapper arround Logger class's setLogLevel method
+     * in the Opent2t library
+     */
+    setLogLevel(transportObject, logLevel) {
+        this.ConsoleLogger.setLogLevel(transportObject, logLevel);
+    }
+
+    /** 
      * Getter for the correlationVector
      */
     getCorrelationVector() {
@@ -53,20 +69,6 @@ class HubController {
      */
     setCorrelationVector(correlationVector) {
         this.correlationVector = correlationVector;
-    }
-
-    /** 
-     * Getter for the logLevel
-     */
-    getLogLevel(transportObject) {
-        return this.ConsoleLogger.getLogLevel(transportObject);
-    }
-
-    /** 
-     * Setter for the logLevel
-     */
-    setLogLevel(transportObject, logLevel) {
-        this.ConsoleLogger.setLogLevel(transportObject, logLevel);
     }
 
     /** 
