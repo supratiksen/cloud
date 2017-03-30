@@ -167,13 +167,13 @@ test.serial('InvalidOnboardingInfoForRefreshAuthTokenThrows', async t =>{
 });
 
 test.serial('Unknown platform', async t => {
-    const translation = await hubController.translatePlatforms(config.hubId, authInfo, config.translation.unknownplatform);
+    const translation = await hubController.translatePlatforms(config.hubId, authInfo, config.subscription.translation.unknownplatform);
     t.is(translation.platforms.length, 0);
     t.is(translation.errors.length, 1);
     t.is(translation.errors[0].name, 'OpenT2TError');
     t.is(translation.errors[0].statusCode, 404);
     t.true(translation.errors[0].message.startsWith(OpenT2TConstants.UnknownPlatform));
-    t.true(translation.errors[0].message.endsWith(config.translation.unknownplatform.model_name));
+    t.true(translation.errors[0].message.endsWith(config.subscription.translation.unknownplatform.model_name));
 });
 
 test.serial('Adding, removing and enumerating transports', async t => {
