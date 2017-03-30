@@ -7,6 +7,7 @@ var HubsConfig = require("./hubsConfig");
 var OpenT2TError = require('opent2t').OpenT2TError;
 var OpenT2TConstants = require('opent2t').OpenT2TConstants;
 var OpenT2TLogger = require('opent2t').Logger;
+var correlationVector;
 
 class HubController {
 
@@ -14,6 +15,58 @@ class HubController {
         this.supportedHubsCache = undefined;
         this.OpenT2T = require('opent2t').OpenT2T;
         this.ConsoleLogger = new OpenT2TLogger(logLevel);
+    }
+
+    /** 
+     * Wrapper arround Logger class's addTransport method
+     * in the Opent2t library
+     */
+    addTransport(transportObject) {
+        this.ConsoleLogger.addTransport(transportObject);
+    }
+
+    /** 
+     * Wrapper arround Logger class's removeTransport method
+     * in the Opent2t library
+     */
+    removeTransport(transportObject) {
+        this.ConsoleLogger.removeTransport(transportObject);
+    }
+
+    /** 
+     * Wrapper arround Logger class's getConfiguredTransports method
+     * in the Opent2t library
+     */
+    getConfiguredTransports() {
+        return this.ConsoleLogger.getConfiguredTransports();
+    }
+
+    /** 
+     * Getter for the correlationVector
+     */
+    getCorrelationVector() {
+        return this.correlationVector;
+    }
+
+    /** 
+     * Setter for the correlationVector
+     */
+    setCorrelationVector(correlationVector) {
+        this.correlationVector = correlationVector;
+    }
+
+    /** 
+     * Getter for the logLevel
+     */
+    getLogLevel(transportObject) {
+        return this.ConsoleLogger.getLogLevel(transportObject);
+    }
+
+    /** 
+     * Setter for the logLevel
+     */
+    setLogLevel(transportObject, logLevel) {
+        this.ConsoleLogger.setLogLevel(transportObject, logLevel);
     }
 
     /** 

@@ -1,3 +1,5 @@
+import * as winston from "winston";
+
 const sleep = require('es6-sleep').promise;
 var test = require('ava');
 var config = require('./hubController-testConfig');
@@ -40,7 +42,7 @@ test.serial("RefreshAuthToken returns a valid non-error response", async t => {
     var oldAccessToken = authInfo['access'].token;
     var refreshedAuthInfo = await hubController.refreshAuthToken(config.hubId, onboardingConfig.onboardingInfo, authInfo);
     console.log("********New Auth Info***********");
-    console.log(JSON.stringify(refreshedAuthInfo));
+    console.log(JSON.stringify(refreshedAuthInfo));;
     console.log("*******************");
     t.truthy(refreshedAuthInfo);
     t.not(refreshedAuthInfo['access'].token, oldAccessToken, "refreshAuthToken failed to update auth token"); 
@@ -172,4 +174,25 @@ test.serial('Unknown platform', async t => {
     t.is(translation.errors[0].statusCode, 404);
     t.true(translation.errors[0].message.startsWith(OpenT2TConstants.UnknownPlatform));
     t.true(translation.errors[0].message.endsWith(config.translation.unknownplatform.model_name));
+});
+
+test.serial('Invoking custom transport wrappers', async t => {
+    hubController.addTransport(winston.transports.Http);
+    t.is(hubController.getConfiguredTransports().length, 2);
+    hubController.removeTransport(winston.transports.Http);
+    t.is(hubController.getConfiguredTransports().length, 1);
+    hubController.addTransport(winston.transports.Http);
+    t.is(hubController.getConfiguredTransports().length, 2);
+});
+
+test.serial('Invoking getter/setter for correlationVector', async t => {
+    hubController.setCorrelationVector("ABC123");
+    t.is(hubController.getCorrelationVector(), 'ABC123');
+});
+
+test.serial('Invoking getter/setter for logLevel', async t => {
+    let transportList = hubController.getConfiguredTransports();
+    t.is(hubController.getLogLevel(transportList[0]), 'verbose'); // default log level
+    hubController.setLogLevel(transportList[0], 'info');
+    t.is(hubController.getLogLevel(transportList[0]), 'info');
 });

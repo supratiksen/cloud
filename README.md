@@ -30,12 +30,17 @@ All APIs defined here return a custom Error object of type OpenT2TError defined 
 > `npm install ava`
 > `npm install opent2t`
 > `npm install opent2t-translator-com-wink-hub`
+> `npm install opent2t-translator-com-wink-lightbulb`
+> `npm install opent2t-translator-com-wink-binaryswitch`
 
 3. Next,(temporary step only until we fix this) copy the node_modules folder into the tests directory
+> `xcopy /i /s node_modules tests\node_modules`
 
-4. cd to the tests folder
+4. Comment out all blocks but WINK in node/hubsConfig.js
 
-5. create a new hubController-testConfig-auth.json file. This has to be named this exact name. Populate with the onboardinginfo below and replace the contents with your username + id:
+5. cd to the tests folder
+
+6. Create a new hubController-testConfig-auth.json file or rename hubController-testConfig-Invalidauth.json file that comes with the repo. This has to be named this exact name. Populate with the onboardinginfo below and replace the contents with your username + id:
 
 {
  "onboardingInfo" : [
@@ -50,9 +55,9 @@ All APIs defined here return a custom Error object of type OpenT2TError defined 
     ]
 }
 
-6. Next if you know already your device ids + control ids (for wink) populate them in the hubController-testConfig.json file or run the test once, look at the output with your device information and populate with your deviceId, control id in the test config.
+7. Next if you know already your device ids + control ids (for wink) populate them in the hubController-testConfig.json file or run the test once, look at the output with your device information and populate with your deviceId, control id in the test config file.
 
-7. Run the test : ava hubcontroller.js
+8. Run the test : ava hubcontroller.js
 
 
 ## Code of Conduct
